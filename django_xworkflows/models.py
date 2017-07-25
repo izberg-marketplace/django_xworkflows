@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 
 """Specific versions of XWorkflows to use with Django."""
 
+from django.apps import apps
 from django.db import models
 from django.conf import settings
 try:
@@ -389,7 +390,7 @@ class Workflow(base.Workflow):
             return self.log_model_class
 
         app_label, model_label = self.log_model.rsplit('.', 1)
-        self.log_model_class = models.get_model(app_label, model_label)
+        self.log_model_class = apps.get_model(app_label, model_label)
         return self.log_model_class
 
     def db_log(self, transition, from_state, instance, *args, **kwargs):
